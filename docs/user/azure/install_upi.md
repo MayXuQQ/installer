@@ -198,7 +198,7 @@ We must copy and store it in a storage container instead. To do so, first create
 Choose the RHCOS version you'd like to use and export the URL of its VHD to an environment variable. For example, to use the latest release available for the 4.3 version, use:
 
 ```sh
-export VHD_URL=`curl -s https://raw.githubusercontent.com/openshift/installer/release-4.3/data/data/rhcos.json | jq -r .azure.url`
+export VHD_URL=$(openshift-install coreos print-stream-json | jq -r '.architectures.x86_64."rhel-coreos-extensions"."azure-disk".url')
 ```
 
 If you'd just like to use the latest _development_ version available (master branch), use:
