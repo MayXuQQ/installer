@@ -195,10 +195,10 @@ export ACCOUNT_KEY=`az storage account keys list -g $RESOURCE_GROUP --account-na
 Given the size of the RHCOS VHD, it's not possible to run the deployments with this file stored locally on your machine.
 We must copy and store it in a storage container instead. To do so, first create a blob storage container and then copy the VHD.
 
-Choose the RHCOS version you'd like to use and export the URL of its VHD to an environment variable. For example, to use the latest release available for the 4.3 version, use:
+Choose the RHCOS version you'd like to use and export the URL of its VHD to an environment variable. For example:
 
 ```sh
-export VHD_URL=`curl -s https://raw.githubusercontent.com/openshift/installer/release-4.3/data/data/rhcos.json | jq -r .azure.url`
+export VHD_URL=$(openshift-install coreos print-stream-json | jq -r '.architectures.x86_64."rhel-coreos-extensions"."azure-disk".url')
 ```
 
 If you'd just like to use the latest _development_ version available (master branch), use:
